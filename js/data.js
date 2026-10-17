@@ -33,10 +33,10 @@ const SITE = {
 const COMMENT = {
   provider: "giscus",
   giscus: {
-    repo: "",          // 如 "sokach/blog-comments"
-    repoId: "",        // giscus.app 生成，如 "R_kgDOxxxxxx"
-    category: "Announcements",
-    categoryId: "",    // giscus.app 生成，如 "DIC_kwDOxxxxxx"
+    repo: "sokach-creator/pinglun",          // 如 "sokach/blog-comments"
+    repoId: "R_kgDOVNDsuA",        // giscus.app 生成，如 "R_kgDOxxxxxx"
+    category: "General",
+    categoryId: "DIC_kwDOVNDsuM4DIsIq",    // giscus.app 生成，如 "DIC_kwDOxxxxxx"
     mapping: "url",    // 用 URL 区分不同页面，每篇文章独立评论串
     lang: "zh-CN",
   },
