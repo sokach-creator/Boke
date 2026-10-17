@@ -14,7 +14,7 @@ const SITE = {
   socials: [
     { name: "GitHub",  url: "https://github.com/",      icon: "github" },
     { name: "Bilibili",url: "https://www.bilibili.com/",icon: "bilibili" },
-    { name: "邮箱",    url: "mailto:me@example.com",    icon: "mail" },
+    { name: "邮箱",    url: "mailto:kldwy_0405@qq.com",    icon: "mail" },
   ],
   beian: "", // 例如 "某ICP备00000000号"，留空则不显示
 };
