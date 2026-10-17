@@ -73,20 +73,79 @@ python3 -m http.server 8000
 4. 等 DNS 生效（几分钟到几小时）、平台自动签发 HTTPS 证书，
    访问 `https://sokach.niuma.club` 即为你的博客。
 
-## 六、留言板说明
+## 六、接入公开评论（Giscus / Waline）
 
-演示版留言保存在访问者自己的浏览器（localStorage），仅本人可见。
-想做成公开留言/评论，推荐二选一（都是免费的）：
+博客已内置两套公开评论系统，**二选一**，在 `js/data.js` 的 `COMMENT` 区块配置：
 
-- **Giscus**（基于 GitHub Discussions）：[giscus.app](https://giscus.app) 生成一段
-  `<script>`，粘贴到 `js/app.js` 中 `pageMessage()` 函数渲染的容器之后即可
-- **Waline**（需要一个小后端，可部署在 Vercel）：见 [waline.js.org](https://waline.js.org)
+```js
+const COMMENT = {
+  provider: "giscus",   // "giscus" | "waline" | "none"（关闭公开评论）
+  ...
+};
+```
+
+评论位置：**文章底部**和**留言页下方**都会挂载；配置未填时会显示引导提示卡。
+
+### 方案 A：Giscus（推荐 —— 免费、免服务器、无广告）
+
+前提：有一个 GitHub 账号。访客评论时需用 GitHub 登录。
+
+1. **建仓库**：在 GitHub 新建一个**公开**仓库，如 `sokach/blog-comments`
+   （专门存评论用，可以不放假文件）
+2. **开启 Discussions**：仓库 → Settings → General → Features → 勾选 `Discussions`
+3. **安装应用**：打开 https://github.com/apps/giscus → Install → 选择刚建的仓库
+4. **拿配置**：打开 https://giscus.app/zh-CN
+   - 填入仓库名 `sokach/blog-comments`
+   - 映射方式选 **"页面 URL（url）"** —— 本博客按 URL 区分，每篇文章/每个页面
+     会自动拥有**独立的评论串**
+   - 讨论区分类选 **`Announcements`**（官方推荐，只有维护者能开新串，访客只能回复）
+   - 页面下方会生成一段 `<script>` 代码
+5. **填配置**：把代码里的四个值抄进 `js/data.js`：
+   ```js
+   giscus: {
+     repo: "sokach/blog-comments",   // data-repo
+     repoId: "R_kgDOxxxxxx",         // data-repo-id
+     category: "Announcements",      // data-category
+     categoryId: "DIC_kwDOxxxxxx",   // data-category-id
+     ...
+   }
+   ```
+6. 保存刷新即可。评论开关的亮/暗主题会自动跟随博客的暗色模式。
+
+### 方案 B：Waline（访客无需登录，昵称+邮箱即可留言）
+
+需要部署一个免费的小后端（约 10 分钟）：
+
+1. **建数据库**：注册 [LeanCloud 国际版](https://console.leancloud.app)
+   → 创建应用（开发版免费）→ 设置 → 应用凭证，记下 `AppID / AppKey / MasterKey`
+2. **一键部署后端**：打开 [Waline 部署文档](https://waline.js.org/guide/get-started.html)
+   → 点击"Deploy to Vercel"按钮 → 用 GitHub 登录并创建项目
+   → 环境变量里填入 LeanCloud 的三个 Key → Deploy
+3. **拿地址**：部署完成后得到 `https://你的项目名.vercel.app`，
+   先访问 `https://…/ui/register` 注册管理员账号（第一个注册的就是站长）
+4. **填配置**：
+   ```js
+   const COMMENT = {
+     provider: "waline",
+     waline: { serverURL: "https://你的项目名.vercel.app" },
+   };
+   ```
+5. 刷新页面，评论框就出现了。样式已适配博客主题色与暗色模式。
+
+### 常见问题
+
+- **评论串怎么区分？** Giscus 用 `mapping: "url"`，Waline 用 `path`（自动取当前
+  页面地址），所以不同文章的评论互不混杂；首页和留言页也各有独立评论串。
+- **想全站共用一个评论串**：把 giscus 的 `mapping` 改成 `"pathname"` 即可。
+- **切换系统**：改 `provider` 字段即可，两套配置可以同时保留。
+- **本地测试**：Giscus 在 `localhost` 下可以正常加载；Waline 需要后端已部署。
 
 ## 七、常见修改
 
 | 想改什么 | 改哪里 |
 | --- | --- |
 | 站名、签名、头像、横幅 | `js/data.js` 的 `SITE`，或直接替换 `assets/avatar.png`、`assets/banner.png` |
+| 公开评论（Giscus/Waline） | `js/data.js` 的 `COMMENT` 区块（详见第六节） |
 | 主题色 | `css/style.css` 顶部的 `--accent` / `--accent-2` |
 | 首屏背景动效速度 | `css/style.css` 中 `heroZoom` 的 `14s` |
 | 页脚文案 | `js/app.js` 的 `buildNav()` 末尾 footer 部分 |
