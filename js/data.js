@@ -8,8 +8,8 @@
 const SITE = {
   name: "Sokach 的个人博客",
   motto: "把日子过成诗，把代码写成歌。",
-  avatar: "assets/avatar.png",
-  banner: "assets/banner.png",
+  avatar: "assets/avatar.jpg",
+  banner: "assets/banner.jpg",
   // 社交链接，不需要的删掉即可
   socials: [
     { name: "GitHub",  url: "https://github.com/",      icon: "github" },
@@ -163,13 +163,13 @@ sokach-blog/
     date: "2026-09-28",
     category: "旅行",
     tags: ["摄影", "随笔"],
-    cover: "assets/banner.png",
+    cover: "assets/banner.jpg",
     excerpt: "日落前的海边城市：橘色的云、晚归的船、亮起来的霓虹灯。随手拍了几张，顺便写点当时的想法。",
     content: `傍晚去海边走了走。太阳沉下去的那十几分钟，整座城市像是被调成了暖色滤镜。
 
 ## 一些快门
 
-![海边的黄昏](assets/banner.png)
+![海边的黄昏](assets/banner.jpg)
 
 - 橘红色的云一直堆到天边
 - 三两艘晚归的小船在浪里慢慢晃
@@ -194,9 +194,6 @@ const SAYS = [
 /* ---------------- 友链 ---------------- */
 const FRIENDS = [
   { name: "Sokach",     url: "https://sokach.dpdns.org", desc: "我的小站 · 欢迎来逛逛", avatar: "" },
-  { name: "云中小屋",   url: "https://example.com/", desc: "记录代码与生活的角落", avatar: "" },
-  { name: "阿源的小站", url: "https://example.com/", desc: "前端学习笔记 | 摄影分享", avatar: "" },
-  { name: "星野博客",   url: "https://example.com/", desc: "追星星的人", avatar: "" },
 ];
 
 /* ---------------- 相册 ---------------- */
