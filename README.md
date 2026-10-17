@@ -11,10 +11,35 @@ sokach-blog/
 ├── css/style.css     # 全部样式（想改配色改这里）
 ├── js/data.js        # ★ 站点配置 + 文章内容（日常只改这个文件）
 ├── js/app.js         # 路由与渲染逻辑（一般不用动）
+├── js/admin.js       # 文章管理器（#/admin 后台，见「二」）
 └── assets/           # 图片素材（banner 横幅、avatar 头像、相册与封面图）
 ```
 
 ## 二、怎么写文章 / 发说说
+
+### ★ 方式一：文章管理器（推荐，像 mywiki 一样点点点）
+
+打开 **`你的博客地址/#/admin`**（或拉到页脚点「管理」），即可在浏览器里
+**写新文章 / 编辑 / 删除**，实时预览，一键发布：
+
+1. **首次使用（只需一次）**：在管理页「⚙️ 发布设置」里填两样东西——
+   - **GitHub 仓库**：你的博客仓库名，格式 `用户名/仓库名`（如 `sakach-creator/my-blog`）
+   - **GitHub Token**：打开 [github.com/settings/personal-access-tokens/new](https://github.com/settings/personal-access-tokens/new) 创建**细粒度令牌**：
+     `Token name` 随意 → `Expiration` 建议 90 天 → `Repository access` 选 **Only select repositories** 并勾选博客仓库 →
+     `Permissions → Repository permissions → Contents` 设为 **Read and write** → 生成后复制
+     （`github_pat_` 开头），粘贴进管理页 → 保存设置
+2. 日常使用：点「＋ 写新文章」→ 填标题和正文（支持 Markdown，右侧实时预览）→
+   点「保存到列表」→ 确认无误后点顶部「**发布更改 ●**」→ 约 1~2 分钟后自动上线
+3. **删除 / 编辑**：文章卡片右侧的按钮，同样要点「发布更改」才生效；改错了就点
+   「重新加载」放弃未发布的改动
+
+> 🔒 安全说明：Token 只保存在你自己浏览器的 localStorage，不会出现在代码或仓库里；
+> 公用电脑不勾「记住」即可（仅本次会话有效）。随时可在 GitHub 设置里撤销。
+>
+> 💡 没有 Token 也能用：写完点「**下载 data.js**」，把文件上传到仓库 `js/` 文件夹
+> 覆盖原文件，效果相同。
+
+### 方式二：手改 data.js
 
 打开 `js/data.js`：
 
@@ -22,6 +47,7 @@ sokach-blog/
   `title`、`date`、`category`、`tags`、`cover`、`excerpt`，把正文写进 `content`。
   正文支持 Markdown 子集：`# 标题`、`**加粗**`、`` `行内代码` ``、` ``` 代码块 ``` `、
   `> 引用`、`- 列表`、`1. 列表`、`[链接](url)`、`![图片](url)`、表格、`---` 分割线。
+  注意：`ARTICLES` 数组内的 `<<ARTICLES:AUTO>>` 两行标记是文章管理器的定位标记，请保留。
 - **发说说**：往 `SAYS` 数组最前面加一条 `{ date, mood, text }`。
 - **加友链 / 相册**：改 `FRIENDS` / `ALBUMS` 数组即可。
 - **改站名 / 签名 / 社交链接**：改 `SITE` 对象。

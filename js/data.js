@@ -1,7 +1,7 @@
 /* ============================================================
  * 站点数据配置 —— 日常只需要改这个文件
  *  1. 改 SITE：站名、签名档、头像、横幅
- *  2. 发文章：往 ARTICLES 数组最前面加一条（content 里写 Markdown）
+ *  2. 发文章：推荐用「文章管理器」（博客地址/#/admin），或往 ARTICLES 最前面加一条
  *  3. 发说说 / 加友链 / 加相册：改对应的数组
  * ============================================================ */
 
@@ -14,7 +14,7 @@ const SITE = {
   socials: [
     { name: "GitHub",  url: "https://github.com/",      icon: "github" },
     { name: "Bilibili",url: "https://www.bilibili.com/",icon: "bilibili" },
-    { name: "邮箱",    url: "mailto:kldwy_0405@qq.com",    icon: "mail" },
+    { name: "邮箱",    url: "mailto:me@example.com",    icon: "mail" },
   ],
   beian: "", // 例如 "某ICP备00000000号"，留空则不显示
 };
@@ -33,16 +33,27 @@ const SITE = {
 const COMMENT = {
   provider: "giscus",
   giscus: {
-    repo: "sokach-creator/pinglun",          // 如 "sokach/blog-comments"
-    repoId: "R_kgDOVNDsuA",        // giscus.app 生成，如 "R_kgDOxxxxxx"
-    category: "General",
-    categoryId: "DIC_kwDOVNDsuM4DIsIq",    // giscus.app 生成，如 "DIC_kwDOxxxxxx"
+    repo: "",          // 如 "sokach/blog-comments"
+    repoId: "",        // giscus.app 生成，如 "R_kgDOxxxxxx"
+    category: "Announcements",
+    categoryId: "",    // giscus.app 生成，如 "DIC_kwDOxxxxxx"
     mapping: "url",    // 用 URL 区分不同页面，每篇文章独立评论串
     lang: "zh-CN",
   },
   waline: {
     serverURL: "",     // 如 "https://your-waline.vercel.app"
   },
+};
+
+/* ---------------- 文章管理器 ----------------
+ * 打开 博客地址/#/admin（或页脚「管理」）即可在浏览器里写文章、改文章、删文章。
+ * repo 填博客所在的 GitHub 仓库（用户名/仓库名）；发布还需要一个 GitHub Token，
+ * 获取步骤见 README「文章管理器」。不配置也没关系：写完点「下载 data.js」手动上传。
+ */
+const ADMIN = {
+  repo: "",        // 如 "sakach-creator/my-blog"
+  branch: "main",  // 仓库分支，一般为 main
+  path: "js/data.js",
 };
 
 /* ---------------- 文章 ----------------
@@ -53,6 +64,7 @@ const COMMENT = {
  *          ``` 代码块、> 引用、- 列表、1. 列表、[链接](url)、![图片](url)、--- 分割线
  */
 const ARTICLES = [
+// <<ARTICLES:AUTO>>
   {
     slug: "hello-world",
     title: "你好，世界：我的博客开张啦",
@@ -181,6 +193,7 @@ sokach-blog/
 
 看着海面发呆的那几分钟，很多焦虑的事忽然就不那么重要了。建议每个人都定期去看看日落，治疗精神内耗有奇效。`,
   },
+// <<ARTICLES:AUTO:END>>
 ];
 
 /* ---------------- 说说（一句话动态） ---------------- */

@@ -142,7 +142,7 @@ function buildNav() {
   $("#footer").innerHTML = `
     <div class="footer-inner">
       <p class="footer-motto">${SITE.motto}</p>
-      <p>© ${new Date().getFullYear()} ${SITE.name} · 手写 HTML/CSS/JS${SITE.beian ? ` · ${SITE.beian}` : ""}</p>
+      <p>© ${new Date().getFullYear()} ${SITE.name} · 手写 HTML/CSS/JS · <a class="footer-admin" href="#/admin">管理</a>${SITE.beian ? ` · ${SITE.beian}` : ""}</p>
     </div>`;
 }
 
@@ -558,6 +558,14 @@ function router() {
   closeDrawer();
   $("#lightbox").hidden = true;
   unmountComment();
+  /* 文章管理器（js/admin.js 提供），仅站长使用 */
+  if (page === "admin" && window.ADMIN_VIEW) {
+    window.ADMIN_VIEW(param);
+    markActiveNav(hash);
+    document.body.classList.toggle("at-hero", false);
+    window.scrollTo(0, 0);
+    return;
+  }
   if (page === "article") pageArticle(param);
   else (ROUTES[page] || pageHome)();
   markActiveNav(hash);
